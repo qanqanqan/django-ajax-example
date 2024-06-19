@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Profiles: ajax approach</h2>
+
+<ul id="display-profiles">
+
+</ul>
+
+<script>
+    $(document).ready(function(){
+        setInterval(function(){
+            $.ajax({
+                type: 'GET',
+                url: "{% url 'get_profiles' %}",
+                success: function(response){
+                    console.log(response);
+                },
+                error: function(response){
+                    alert("error getting data");
+                }
+            })
+        }, 10000);
+    });
+</script>
+
+{% endblock %}
