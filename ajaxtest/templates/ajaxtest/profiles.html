@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Updating data from DB with GET method in real-time</h2>
+
+<ul id="display-profiles">
+
+</ul>
+
+<script>
+    $(document).ready(function(){
+        setInterval(function(){
+            $.ajax({
+                type: 'GET',
+                url: "{% url 'get_profiles' %}",
+                
+                success: function(response){
+                    $("#display-profiles").empty();
+                    for(var i in response.profiles)
+                    {
+                        $("#display-profiles").append(
+                            "<li>"+response.profiles[i].name+"</li>"
+                        );
+                    }
+                },
+
+                error: function(response){
+                    alert("error getting data");
+                }
+            })
+        }, 2000);
+    });
+</script>
+
+{% endblock %}

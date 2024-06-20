@@ -2,27 +2,10 @@
 
 {% block content %}
 
-<h2>Profiles: ajax approach</h2>
-
-<ul id="display-profiles">
-
+<h2>Various AJAX functionality implementations</h2>
+<ul>
+    <li><a href="{% url 'profiles' %}">Getting data with GET method</a></li>
+    <li><a href="{% url 'change_form' %}">Creating data with POST method</a></li>
 </ul>
-
-<script>
-    $(document).ready(function(){
-        setInterval(function(){
-            $.ajax({
-                type: 'GET',
-                url: "{% url 'get_profiles' %}",
-                success: function(response){
-                    console.log(response);
-                },
-                error: function(response){
-                    alert("error getting data");
-                }
-            })
-        }, 10000);
-    });
-</script>
 
 {% endblock %}

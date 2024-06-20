@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Submit form</h2>
+
+<form id="submit-form" method="POST">
+    {% csrf_token %}
+    <p>
+        <label for="name-input">Name</label>
+        <input type="text" id="name-input" name="name">
+    </p>
+
+    <p>
+        <label for="email-input">Email</label>
+        <input type="email" id="email-input" name="email">
+    </p>
+
+    <p>
+        <label for="is-staff-input">Is staff</label>
+        <input type="checkbox" id="is-staff-input" name="is_staff">
+    </p>
+
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    $(document).on("submit", "#submit-form", function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'change_form' %}",
+            data: {
+                name:$("#name-input").val(),
+                email:$("#email-input").val(),
+                is_staff:$("#is-staff-input").val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+
+            success: function (data) {
+                alert(data);
+            },
+            
+            error: function(error) {
+                alert('error');
+            },
+        })
+    });
+</script>
+
+{% endblock %}
